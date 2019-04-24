@@ -95,7 +95,7 @@ public class EJBTester {
                     // Add a book
                     ArrayList<String> l = new ArrayList<String>();
                     l.add("1");
-                    System.out.println(libBean.modifyProduct("2", "type" , "Electrical Device"));
+                    System.out.println(libBean.showProductInStore("quan 1").get(0).getName());
                 } else {
                     // Exit
                     break;

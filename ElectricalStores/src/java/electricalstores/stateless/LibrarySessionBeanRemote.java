@@ -17,6 +17,8 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface LibrarySessionBeanRemote {
+    //return store name
+    String getStoreName(String user_name);
     //return account information
     Account login(String userName, String password);
     // return success or failed
@@ -41,13 +43,9 @@ public interface LibrarySessionBeanRemote {
     
     String deleteProduct(String Id);
     
-    List<Receipt> showHistoricalSelling(); // for manager
-    
     List<Receipt> showHistoricalSelling(String storeName); // for admin
     
-    List<Product> showProductInStore();//for manager
-    
-    List<Product> showProductInStore(String storeName);//for admin
+    List<Product> showProductInStore(String storeName);
     
     List<Product> searchProductByName(String name , String storeName);//for admin
     

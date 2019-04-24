@@ -291,23 +291,44 @@ public class LibrarySessionBean implements LibrarySessionBeanRemote {
     }
 
     @Override
-    public List<Receipt> showHistoricalSelling() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public List<Receipt> showHistoricalSelling(String storeName) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public List<Product> showProductInStore() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public List<Product> showProductInStore(String storeName) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Product> resultList = new ArrayList();
+        Connection c = null;
+        try {
+        //-------------------------------------------------
+            ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup(url);
+            c = ds.getConnection(usernameServer, passwordServer);
+    //-------------------------------------------------
+    //get connection
+            Statement statement = c.createStatement();
+            String SQL = "SELECT p.*\n" +
+                        "FROM public.\"Product\" p , public.\"Store\" s, public.product_store ps \n" +
+                        "WHERE p.id = ps.product_id AND s.name = '"
+                    + storeName + "'";
+            ResultSet rs = statement.executeQuery(SQL);
+            if(rs.next()){
+                resultList.add(new Product(rs.getString("name")
+                                        , rs.getString("type")
+                                        , rs.getString("description")
+                                        , rs.getBoolean("is_sold")
+                                        , rs.getInt("price")
+                                        , storeName));
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+        }
+        
+        return resultList;
     }
 
     @Override
@@ -446,5 +467,31 @@ public class LibrarySessionBean implements LibrarySessionBeanRemote {
             System.err.println(ex.toString());
         }
         return "successful";
+    }
+
+    @Override
+    public String getStoreName(String user_name) {
+        Connection c = null;
+        Account account = new Account();
+        try {
+    //-------------------------------------------------
+            ctx = new InitialContext();
+            ds = (DataSource) ctx.lookup(url);
+            c = ds.getConnection(usernameServer, passwordServer);
+    //-------------------------------------------------
+    //get connection
+            Statement statement = c.createStatement();
+            String SQL = "SELECT s.name\n" +
+                        "FROM public.\"Store\"  s, public.\"Person\" p, public.\"Account\" a\n" +
+                        "WHERE a.user_name = '" +user_name+"' AND a.person_id = p.id AND p.store_id = s.id";
+            ResultSet rs = statement.executeQuery(SQL);
+            rs.next();
+            return rs.getString(1);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            System.err.println(ex.toString());
+        }
+        return null;
     }
 }
