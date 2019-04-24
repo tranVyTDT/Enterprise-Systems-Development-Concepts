@@ -16,30 +16,51 @@ public class Product implements Serializable{
     private String type;
     private String description;
     private boolean is_sold = false;
-    private String id;
+    private int price;
+    private String store_name;
 
     public Product() {
     }
     public Product(Product p ){
         this.description = p.description;
-        this.id = p.id;
+        this.price = p.price;
         this.is_sold = p .is_sold;
         this.name = p.name;
         this.type = p.type;
+        this.store_name = p.store_name;
     }
-    public Product(String name, String type, String description, String id) {
+    public Product(String name, String type, String description, Boolean is_sold ,int price, String store_name) {
         this.name = name;
         this.type = type;
         this.description = description;
-        this.id = id;
+        this.is_sold = is_sold;
+        this.price = price;
+        this.store_name = store_name;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public String getStore_name() {
+        return store_name;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
+    }
+    
+    
     public String getDescription() {
         return description;
     }
 
-    public String getId() {
-        return id;
+    public int getId() {
+        return price;
     }
 
     public String getName() {
@@ -54,8 +75,8 @@ public class Product implements Serializable{
         this.description = description;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setId(int price) {
+        this.price = price;
     }
 
     public void setIs_sold(boolean is_sold) {
@@ -68,6 +89,11 @@ public class Product implements Serializable{
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString(); //To change body of generated methods, choose Tools | Templates.
     }
     
     

@@ -17,23 +17,29 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface LibrarySessionBeanRemote {
+    //return account information
     Account login(String userName, String password);
-    
+    // return success or failed
     String createAccount(String userName, String password, String position , int person_id);
-    
-    void deleteAccount(String userName);
-
+    // return success or failed
+    String createPerson(String name , int age , int store_id);
+    // return success or failed
+    String createStore(String storeName);
+    // return success or failed
+    String deleteAccount(String userName);
+    // return receit information
     Receipt finishReceipt(String receiptId);
+    // return list of receipt ID
+    List<String> listReceiptId(); 
+    // @param productId is product id the customer want to buy
+    String createReceipt(List<String> productId , String sales_consultant_name);
+    //@param product information
+    String importProduct(String name, int price, String description, String type, int store_id); 
+    // @param id is product id
+    // @param attribute is the attribute will be change 
+    String modifyProduct(String Id, String attribute, String newValue);
     
-    List<String> listReceiptId(); // return list of receipt ID
-    
-    void createReceipt(List<String> productId);
-    
-    void importProduct(String name, int price, String description, String type); 
-    
-    void modifyProduct(String Id, String attribute, String newValue);
-    
-    void deleteProduct(String Id);
+    String deleteProduct(String Id);
     
     List<Receipt> showHistoricalSelling(); // for manager
     
@@ -43,9 +49,7 @@ public interface LibrarySessionBeanRemote {
     
     List<Product> showProductInStore(String storeName);//for admin
     
-    List<Product> searchProductByName(String name);//for manager
-    
     List<Product> searchProductByName(String name , String storeName);//for admin
     
-    Product getProductDetail(String Id);
+    Product getProductDetail(String Id , String store_name);
 }

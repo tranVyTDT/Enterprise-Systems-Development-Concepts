@@ -18,6 +18,7 @@ public class Receipt implements Serializable{
     private String sales_consultant_name;
     private Data date_and_time;
     private float total_cost;
+    private String store_name;
 
     public Receipt() {
     }
@@ -27,16 +28,26 @@ public class Receipt implements Serializable{
         this.id = r.id;
         this.sales_consultant_name = r.sales_consultant_name;
         this.total_cost = r.total_cost;
+        this.store_name = r.store_name;
     }
 
-    public Receipt(String id, String cashier_name, String sales_consultant_name, Data date_and_time, float total_cost) {
+    public Receipt(String id, String cashier_name, String sales_consultant_name, Data date_and_time, float total_cost , String store_name) {
         this.id = id;
         this.cashier_name = cashier_name;
         this.sales_consultant_name = sales_consultant_name;
         this.date_and_time = date_and_time;
         this.total_cost = total_cost;
+        this.store_name = store_name;
     }
 
+    public String getStore_name() {
+        return store_name;
+    }
+
+    public void setStore_name(String store_name) {
+        this.store_name = store_name;
+    }
+    
     public String getCashier_name() {
         return cashier_name;
     }

@@ -3,19 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package electricalstores.stateless;
+package testClient;
 
 import electricalstores.data.Account;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 /**
  *
  * @author HP
  */
 public class test {
-    
+
     public static void main(String[] args) {
-        LibrarySessionBean l = new LibrarySessionBean();
-        Account a =  l.login("admin", "admin");
-        System.out.println(a.getUser_name());
+        EJBTester ejb = new EJBTester();
+        ejb.testStatelessEJB();
+        
     }
 }
